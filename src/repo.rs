@@ -1996,13 +1996,19 @@ pub fn clone_repo(
     }
     options.remote_callbacks(callbacks);
 
-    let local_repo = git2::build::RepoBuilder::new()
-        .fetch_options(options)
-        .clone(url.as_str(), path)?;
     if fancy {
         print!("{clear_line}{show_cursor}\r");
     }
-    Ok(local_repo)
+    git2::build::RepoBuilder::new()
+        .fetch_options(options)
+        .clone(url.as_str(), path)
+        .wrap_err_with(|| {
+            ftl_eyre!(
+                "msg-repo-clone-fail",
+                url = url.as_str(),
+                path = path.to_str()
+            )
+        })
 }
 
 pub fn load_ssh_keys(

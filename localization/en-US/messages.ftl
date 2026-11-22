@@ -985,6 +985,7 @@ msg-repo-clone-downloading = {" "}Downloading... {NUMBER($percent, maximumFracti
 msg-repo-clone-resolving = {"   "}Resolving... {NUMBER($percent, maximumFractionDigits: 2)}%
 msg-repo-clone-finishing_up = Finishing up...
 msg-repo-clone-success = Cloned {$repo} into {$path}
+msg-repo-clone-fail = Failed to clone {$url} into {$path}
 
 help-cmd-repo-star = Add a star to a repo
 msg-repo-star-success = Starred {$owner}/{$repo}!
