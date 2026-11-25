@@ -1995,11 +1995,7 @@ pub fn clone_repo(
         });
     }
     options.remote_callbacks(callbacks);
-
-    if fancy {
-        print!("{clear_line}{show_cursor}\r");
-    }
-    git2::build::RepoBuilder::new()
+    let res = git2::build::RepoBuilder::new()
         .fetch_options(options)
         .clone(url.as_str(), path)
         .wrap_err_with(|| {
@@ -2008,7 +2004,12 @@ pub fn clone_repo(
                 url = url.as_str(),
                 path = path.to_str()
             )
-        })
+        });
+    if fancy {
+        print!("{clear_line}{show_cursor}\r");
+    }
+
+    res
 }
 
 pub fn load_ssh_keys(
